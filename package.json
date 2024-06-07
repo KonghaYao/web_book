@@ -1,0 +1,36 @@
+{
+    "name": "example-with-unocss",
+    "type": "module",
+    "private": true,
+    "scripts": {
+        "dev": "vinxi dev",
+        "check": "biome check --write ./ --diagnostic-level=error",
+        "build": "vinxi build",
+        "prepare": "husky install",
+        "start": "vinxi start"
+    },
+    "dependencies": {
+        "@solidjs/router": "^0.13.3",
+        "@solidjs/start": "^1.0.1",
+        "@unocss/reset": "^0.59.2",
+        "lodash-es": "^4.17.21",
+        "solid-js": "^1.8.17",
+        "unocss": "^0.59.2",
+        "vinxi": "^0.3.11"
+    },
+    "engines": {
+        "node": ">=18"
+    },
+    "devDependencies": {
+        "lint-staged": "^15.2.2",
+        "@biomejs/biome": "1.8.0",
+        "@types/lodash-es": "^4.17.12",
+        "husky": "^8.0.0",
+        "prettier": "^3.3.1",
+        "typescript": "^5.4.5"
+    },
+    "lint-staged": {
+        "*.{ts,tsx,js,jsx}": "biome check --diagnostic-level=error --write ",
+        "*.{css,md,mdx,json}": "prettier --ignore-unknown --write "
+    }
+}

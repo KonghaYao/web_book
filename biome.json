@@ -1,0 +1,50 @@
+{
+    "$schema": "https://biomejs.dev/schemas/1.8.0/schema.json",
+    "organizeImports": {
+        "ignore": ["./dist/*", "./es/**/*", "./lib/**/*", "_site/**/*"],
+        "enabled": true
+    },
+    "vcs": {
+        "enabled": true,
+        "clientKind": "git",
+        "useIgnoreFile": true
+    },
+    "formatter": {
+        "enabled": true,
+        "ignore": ["./dist/*", "./es/**/*", "./lib/**/*", "_site/**/*"],
+        "indentStyle": "space",
+        "lineWidth": 100,
+        "indentWidth": 4
+    },
+    "linter": {
+        "enabled": true,
+        "ignore": ["./dist/*", "./es/**/*", "./lib/**/*", "_site/**/*"],
+        "rules": {
+            "recommended": true,
+            "correctness": {
+                "useJsxKeyInIterable": {
+                    "level": "off"
+                }
+            },
+            "suspicious": {
+                "noExplicitAny": "warn",
+                "noConfusingVoidType": "warn"
+            },
+            "style": {
+                "noNonNullAssertion": "off",
+                "noParameterAssign": "off",
+                "noUselessElse": "off",
+                "useTemplate": "warn",
+                "useSelfClosingElements": "warn"
+            },
+            "complexity": {
+                "useArrowFunction": "off",
+                "noForEach": "off"
+            },
+            "a11y": {
+                "useButtonType": "warn",
+                "useKeyWithClickEvents": "off"
+            }
+        }
+    }
+}

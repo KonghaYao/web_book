@@ -9,10 +9,13 @@
         "check": "biome check --write ./ --diagnostic-level=error"
     },
     "dependencies": {
-        "@cn-ui/core": "^2.8.6",
-        "@cn-ui/reactive": "^4.8.2",
+        "@cn-ui/core": "^2.8.9",
+        "@cn-ui/reactive": "^4.8.4",
         "@solidjs/router": "^0.13.3",
         "@unocss/reset": "^0.59.2",
+        "appwrite": "^14.0.0",
+        "appwrite-ooc": "^1.0.0",
+        "dayjs": "^1.11.11",
         "lodash-es": "^4.17.21",
         "solid-js": "^1.8.17",
         "unocss": "^0.59.2"
@@ -21,14 +24,14 @@
         "node": ">=18"
     },
     "devDependencies": {
-        "vite": "^5.2.0",
-        "vite-plugin-solid": "^2.10.2",
         "@biomejs/biome": "1.8.0",
         "@types/lodash-es": "^4.17.12",
         "husky": "^8.0.0",
         "lint-staged": "^15.2.2",
         "prettier": "^3.3.1",
-        "typescript": "^5.4.5"
+        "typescript": "^5.4.5",
+        "vite": "^5.2.0",
+        "vite-plugin-solid": "^2.10.2"
     },
     "lint-staged": {
         "*.{ts,tsx,js,jsx}": "biome check --diagnostic-level=error --write ",

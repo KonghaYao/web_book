@@ -35,7 +35,7 @@
                 "noParameterAssign": "off",
                 "noUselessElse": "off",
                 "useTemplate": "warn",
-                "useSelfClosingElements": "warn"
+                "useSelfClosingElements": "off"
             },
             "complexity": {
                 "useArrowFunction": "off",

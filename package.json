@@ -14,11 +14,13 @@
         "@solidjs/router": "^0.13.3",
         "@unocss/reset": "^0.59.2",
         "appwrite": "^14.0.0",
-        "appwrite-ooc": "^1.0.0",
+        "appwrite-ooc": "^1.1.2",
         "dayjs": "^1.11.11",
         "lodash-es": "^4.17.21",
+        "monaco-editor-solid": "^2.0.2",
         "solid-js": "^1.8.17",
-        "unocss": "^0.59.2"
+        "unocss": "^0.59.2",
+        "vscode-oniguruma": "1.6.2"
     },
     "engines": {
         "node": ">=18"

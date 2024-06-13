@@ -21,20 +21,26 @@ dependencies:
     specifier: ^14.0.0
     version: 14.0.1
   appwrite-ooc:
-    specifier: ^1.0.0
-    version: 1.0.0
+    specifier: ^1.1.2
+    version: 1.1.2
   dayjs:
     specifier: ^1.11.11
     version: 1.11.11
   lodash-es:
     specifier: ^4.17.21
     version: 4.17.21
+  monaco-editor-solid:
+    specifier: ^2.0.2
+    version: 2.0.2
   solid-js:
     specifier: ^1.8.17
     version: 1.8.17
   unocss:
     specifier: ^0.59.2
     version: 0.59.4(postcss@8.4.38)(vite@5.2.13)
+  vscode-oniguruma:
+    specifier: 1.6.2
+    version: 1.6.2
 
 devDependencies:
   '@biomejs/biome':
@@ -667,6 +673,25 @@ packages:
   /@cn-ui/table-core@8.16.0:
     resolution: {integrity: sha512-EuHRGMenaIjaPdzDKe7maSjqKb5tQj4BbblP76MRtmTo5hePLcOjkBBjUZCvenfYiJjTsY0EhjgB6T+sR0YcHg==}
     engines: {node: '>=12'}
+    dev: false
+
+  /@codingame/monaco-editor-wrapper@2.2.1:
+    resolution: {integrity: sha512-NMl3iSlMoU+tWwmF6es/e5xAJL3h02l2kDWSPvLpIemYPUcVpJov/rue3aVmaSi4DmCoyCPzpyNlPDvx03FblQ==}
+    dependencies:
+      monaco-editor: /@codingame/monaco-editor@0.33.7
+      vscode: /@codingame/monaco-vscode-api@1.67.20
+      vscode-oniguruma: 1.6.2
+    dev: false
+
+  /@codingame/monaco-editor@0.33.7:
+    resolution: {integrity: sha512-4nsW5GVTuqPD042sJNWzwJnlHtvxjmvs80GiGZtA+133pvABWRgQn9VP1pqnCbRxuY2DwqIBgYpRkuMoEdjVaQ==}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+    dev: false
+
+  /@codingame/monaco-vscode-api@1.67.20:
+    resolution: {integrity: sha512-3+swJLtpNWmn2hsnVFv/qbLuQLt+FlaDLgcK0PgYwWVIJn2FjO48a0+ke8ZYS/tiqZxJgJSk+y6hdohgZo7n0g==}
+    dependencies:
+      monaco-editor: 0.33.0
     dev: false
 
   /@ctrl/tinycolor@3.6.1:
@@ -1380,6 +1405,10 @@ packages:
 
   /@types/http-errors@2.0.4:
     resolution: {integrity: sha512-D0CFMMtydbJAegzOyHjtiKPLlvnm3iTZyZRSZoLq2mRhDdmLfIWOCYPfQJ4cu2erKghU++QvjcUjp/5h7hESpA==}
+    dev: false
+
+  /@types/jasmine@3.10.18:
+    resolution: {integrity: sha512-jOk52a1Kz+1oU5fNWwAcNe64/GsE7r/Q6ronwDox0D3ETo/cr4ICMQyeXrj7G6FPW1n8YjRoAZA2F0XBr6GicQ==}
     dev: false
 
   /@types/lodash-es@4.17.12:
@@ -2323,8 +2352,8 @@ packages:
       picomatch: 2.3.1
     dev: false
 
-  /appwrite-ooc@1.0.0:
-    resolution: {integrity: sha512-Kohy8IQooNxNMY+teQ32LQi0SyvdSV/eySIk2rxJGNpv/GojLXDPrpoH/yMupb5TLA8VOrk/3+V9LViQ9KMfjw==}
+  /appwrite-ooc@1.1.2:
+    resolution: {integrity: sha512-FSenOUe/xh/tZjL31dDYNw2x0Bndrmckl5gVf2dsjvu1v809EKfR0j0XWnkUNhrVOaNAXq021ozSYJ9PZVkdGA==}
     dependencies:
       appwrite: 14.0.1
     transitivePeerDependencies:
@@ -3430,6 +3459,19 @@ packages:
       ufo: 1.5.3
     dev: false
 
+  /monaco-editor-solid@2.0.2:
+    resolution: {integrity: sha512-VwkXWhy/jFS4AlZCTbLYVNVklniGiO3Vcl+/GmKn7EaPl64Df7BFVgmgdeq6qIgrqXnGzEfhDMh9GJXdNBUKdA==}
+    dependencies:
+      '@codingame/monaco-editor-wrapper': 2.2.1
+      mitt: 3.0.1
+      vscode-icons-js: 11.6.1
+      vscode-oniguruma: 1.6.2
+    dev: false
+
+  /monaco-editor@0.33.0:
+    resolution: {integrity: sha512-VcRWPSLIUEgQJQIE0pVT8FcGBIgFoxz7jtqctE+IiCxWugD0DwgyQBcZBhdSrdMC84eumoqMZsGl2GTreOzwqw==}
+    dev: false
+
   /mrmime@2.0.0:
     resolution: {integrity: sha512-eu38+hdgojoyq63s+yTpN4XMBdt5l8HhMhc4VKLO9KM5caLIBvUm4thi7fFaxyTmCKeNnXZ5pAlBwCUnhA09uw==}
     engines: {node: '>=10'}
@@ -4172,6 +4214,16 @@ packages:
     dependencies:
       vite: 5.2.13
     dev: true
+
+  /vscode-icons-js@11.6.1:
+    resolution: {integrity: sha512-rht18IFYv117UlqBn6o9j258SOtwhDBmtVrGwdoLPpSj6Z5LKQIzarQDd/tCRWneU68KEX25+nsh48tAoknKNw==}
+    dependencies:
+      '@types/jasmine': 3.10.18
+    dev: false
+
+  /vscode-oniguruma@1.6.2:
+    resolution: {integrity: sha512-KH8+KKov5eS/9WhofZR8M8dMHWN2gTxjMsG4jd04YhpbPR91fUj7rYQ2/XjeHCJWbg7X++ApRIU9NUwM2vTvLA==}
+    dev: false
 
   /webidl-conversions@3.0.1:
     resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}

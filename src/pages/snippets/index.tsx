@@ -1,12 +1,15 @@
-import { createEffect, For } from "solid-js";
+import { createEffect, For, onMount } from "solid-js";
+import { type Snippet, snippets } from "../../server/database/snippet";
 import {
-    PureData,
-    type Snippet,
-    snippets,
-} from "../../server/database/snippet";
-import { atom, ObjectAtom, resource } from "@cn-ui/reactive";
-import { BaseInput, Button } from "@cn-ui/core";
+    atom,
+    resource,
+    type SelectOptionsType,
+    StoreToAtom,
+} from "@cn-ui/reactive";
+import { BaseInput, Button, MagicForm } from "@cn-ui/core";
 import { AppWriteErrorHandler } from "../../server/appwrite";
+import { type Expose, FileEditorList, applyTheme } from "monaco-editor-solid";
+import { createStore } from "solid-js/store";
 
 export const useWatchingController = () => {
     const watching = atom(null);
@@ -45,7 +48,7 @@ export default () => {
                     }}
                 </For>
             </ul>
-            <main class="flex-1 bg-gray-200">
+            <main class="flex-1 bg-gray-200 flex flex-col">
                 <SnippetEditor id={selected()}></SnippetEditor>
             </main>
         </section>
@@ -59,7 +62,9 @@ function SnippetEditor(props: { id?: string }) {
         code: "",
         language: "",
         isPublic: false,
-    };
+    } as Snippet;
+    const store = createStore<Snippet>(defaultData);
+    const [editingData, setEditingData] = store;
     const snippet = resource<Snippet>(
         async () => {
             if (props.id) {
@@ -70,27 +75,50 @@ function SnippetEditor(props: { id?: string }) {
         },
         { deps: [() => props.id], initValue: defaultData }
     );
-    const form = ObjectAtom(snippet);
+    let isMounted = false;
+    onMount(() => {
+        isMounted = true;
+    });
+    createEffect(() => {
+        setEditingData(() => snippet());
+        isMounted &&
+            editor()
+                ?.watchingEditor.getWatching()
+                .monacoEditor?.setValue(snippet().code);
+    });
+    onMount(() => {
+        setTimeout(() => {
+            const languageMap: Map<string, unknown> =
+                editor()?.watchingEditor.getWatching().monacoEditor
+                    ?.languageConfigurationService.configurations;
 
-    const submitAction = resource(
-        () => {
-            if (snippet().$id) {
-                return snippets.updateDocument(snippet());
-            } else {
-                return snippets.createDocument(snippet());
+            if (languageMap) {
+                languageOptions(
+                    [...languageMap.keys()].map((i) => ({ label: i, value: i }))
+                );
+                console.log(
+                    editor()?.watchingEditor.getWatching().monacoEditor
+                );
+                applyTheme("github-light");
             }
-        },
+        }, 200);
+    });
+    const languageOptions = atom<SelectOptionsType[]>([]);
+    const submitAction = resource(
+        () => snippets.createOrUpdateDocument(editingData),
         { immediately: false, onError: AppWriteErrorHandler }
     );
+    const editor = atom<Expose | undefined>(undefined);
     return (
-        <div>
+        <>
             <header class="bg-white font-bold h-12 flex">
                 <span>
-                    <BaseInput v-model={form.title}></BaseInput>
+                    <BaseInput
+                        v-model={StoreToAtom(store, "title")}></BaseInput>
                 </span>
                 <span class="flex-1"></span>
                 <span>
-                    <Button>刷新</Button>
+                    <Button onclick={() => snippet.refetch()}>刷新</Button>
                     <Button
                         disabled={submitAction.loading()}
                         onclick={() => submitAction.refetch()}>
@@ -99,13 +127,43 @@ function SnippetEditor(props: { id?: string }) {
                 </span>
             </header>
             <div>
-                <BaseInput
-                    type="textarea"
-                    v-model={form.description}></BaseInput>
+                <MagicForm
+                    showLabel={false}
+                    setOriginData={setEditingData}
+                    originData={editingData}
+                    config={[
+                        {
+                            accessorKey: "description",
+                            type: "text",
+                        },
+                        {
+                            accessorKey: "language",
+                            type: "select",
+                            options: languageOptions(),
+                        },
+                    ]}></MagicForm>
             </div>
-            <div>
-                <BaseInput v-model={form.code} type="textarea"></BaseInput>
+            <div class="flex-1">
+                <FileEditorList
+                    files={[
+                        // First Editor Show
+                        ["temp.js"],
+                    ]}
+                    fs={{
+                        promises: {
+                            // create a readFile to loadFile!
+                            readFile(fileName: string) {
+                                return editingData.code;
+                            },
+                            writeFile(fileName: string, code: string) {
+                                setEditingData("code", code);
+                                submitAction.refetch();
+                            },
+                        },
+                    }}
+                    toggleExplorer={() => {}}
+                    expose={editor}></FileEditorList>
             </div>
-        </div>
+        </>
     );
 }

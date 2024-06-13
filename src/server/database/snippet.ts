@@ -11,7 +11,7 @@ export type PureData<T> = Omit<
     | "$permissions"
 >;
 
-export interface Snippet extends Models.Document {
+export interface Snippet {
     title: string;
     description: string;
     code: string;

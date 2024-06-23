@@ -15,7 +15,7 @@ export interface Snippet {
     title: string;
     description: string;
     code: string;
-    language: string;
+    language?: string;
     isPublic: boolean;
     tag: string[];
 }

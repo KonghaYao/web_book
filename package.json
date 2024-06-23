@@ -9,13 +9,12 @@
         "check": "biome check --write ./ --diagnostic-level=error"
     },
     "dependencies": {
-        "@cn-ui/core": "^2.8.9",
-        "@cn-ui/reactive": "^4.8.4",
+        "@cn-ui/core": "^2.8.10",
+        "@cn-ui/reactive": "^4.8.5",
         "@solidjs/router": "^0.13.3",
         "@unocss/reset": "^0.59.2",
         "appwrite": "^14.0.0",
         "appwrite-ooc": "^1.1.2",
-        "dayjs": "^1.11.11",
         "lodash-es": "^4.17.21",
         "monaco-editor-solid": "^2.0.2",
         "solid-js": "^1.8.17",

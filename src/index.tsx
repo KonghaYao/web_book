@@ -11,28 +11,25 @@ const pages = import.meta.glob("./pages/**/index.{ts,tsx}");
 export const App = () => {
     return (
         <HashRouter>
-            {Object.entries(pages).map(([path, modules]) => {
-                const p = path
-                    .replace("./pages", "")
-                    .replace(/index$/, "")
-                    .split(".")[0];
-                return {
-                    path: p,
-                    component: lazy(async () => {
-                        /** @ts-ignore */
-                        const Comp = (await modules()).default;
+            {[
+                {
+                    path: "/",
+                    component: (props) => {
+                        return <Layout>{props.children}</Layout>;
+                    },
+                    children: Object.entries(pages).map(([path, modules]) => {
+                        const p = path
+                            .replace("./pages/", "")
+                            .split(".")[0]
+                            .replace(/index$/, "");
+
                         return {
-                            default: () => {
-                                return (
-                                    <Layout>
-                                        <Comp />
-                                    </Layout>
-                                );
-                            },
+                            path: p,
+                            component: lazy(modules),
                         };
                     }),
-                };
-            })}
+                },
+            ]}
         </HashRouter>
     );
 };

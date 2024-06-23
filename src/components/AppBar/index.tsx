@@ -7,11 +7,11 @@ export const AppBar = () => {
             <For
                 each={[
                     {
-                        path: "/index",
+                        path: "/",
                         name: "首页",
                     },
                     {
-                        path: "/snippets/index",
+                        path: "/snippets",
                         name: "代码片段",
                     },
                 ]}>

@@ -25,7 +25,7 @@ export const App = () => {
 
                         return {
                             path: p,
-                            component: lazy(modules),
+                            component: lazy(modules as any),
                         };
                     }),
                 },

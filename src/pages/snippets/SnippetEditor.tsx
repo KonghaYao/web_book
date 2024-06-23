@@ -7,7 +7,7 @@ import {
     computed,
 } from "@cn-ui/reactive";
 import { applyTheme, type Expose, FileEditorList } from "monaco-editor-solid";
-import { onMount, createEffect } from "solid-js";
+import { onMount, createEffect, Show } from "solid-js";
 import { createStore } from "solid-js/store";
 import { AppWriteErrorHandler } from "../../server/appwrite";
 import { type Snippet, snippets } from "../../server/database/snippet";
@@ -77,11 +77,15 @@ export function SnippetEditor(props: { id?: string }) {
                 <BaseInput
                     class="font-bold w-full flex-1 h-8"
                     v-model={StoreToAtom(store, "title")}
-                    placeholder="请输入标题"></BaseInput>
-
-                <Button class="h-8" onclick={() => snippet.refetch()}>
-                    刷新
-                </Button>
+                    placeholder="请搜索标题"></BaseInput>
+                <Show when={!isAddingNewOne()}>
+                    <Button
+                        class="h-8"
+                        onclick={() => snippet.refetch()}
+                        disabled={snippet.loading()}>
+                        刷新
+                    </Button>
+                </Show>
                 <Button
                     class="h-8"
                     type="primary"
@@ -109,7 +113,7 @@ export function SnippetEditor(props: { id?: string }) {
                         },
                     ]}></MagicForm>
             </div>
-            <div class="flex-1 border rounded-md">
+            <div class="flex-1 border rounded-md max-h-50vh">
                 <FileEditorList
                     files={[
                         // First Editor Show

@@ -11,7 +11,7 @@ export const Layout = (props: { children: JSXElement }) => {
             GlobalDialog.toggle("login-dialog", true);
         });
     return (
-        <section class="h-full w-full overflow-hidden flex">
+        <section class="h-screen w-full overflow-hidden flex">
             <AppBar></AppBar>
             {props.children}
             <LoginDialog></LoginDialog>

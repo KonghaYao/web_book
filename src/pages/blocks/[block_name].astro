@@ -7,13 +7,15 @@ const compsEntries = (
             import.meta.glob<boolean, string, any>("../../blocks/**/*.tsx")
         ).map(async ([key, load]) => {
             if (key.includes("PROPS")) {
-                PROPS = (await load()).default;
+                PROPS = await load();
                 return null;
             }
-            if (!key.includes(block_name!)) {
+            if (!block_name || !key.includes(block_name!)) {
                 return null;
             }
-            return [key, await load()];
+            const module = { ...(await load()) };
+            module.name = key.split(block_name + "/")[1].split(".")[0];
+            return [key, module];
         })
     )
 ).filter((i) => i);
@@ -25,8 +27,10 @@ const components = Object.values(comps);
     <!-- Display all of our components -->
     {
         components.map((component) => (
-            <section class="border rounded-xl border-blue-700">
-                <component.default {...PROPS} />
+            <section class="border rounded-xl border-blue-700 p-4">
+                <component.default
+                    {...(PROPS[component.name] ?? PROPS.default)}
+                />
             </section>
         ))
     }

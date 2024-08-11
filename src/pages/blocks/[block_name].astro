@@ -1,0 +1,33 @@
+---
+const { block_name } = Astro.params;
+let PROPS: any = {};
+const compsEntries = (
+    await Promise.all(
+        Object.entries(
+            import.meta.glob<boolean, string, any>("../../blocks/**/*.tsx")
+        ).map(async ([key, load]) => {
+            if (key.includes("PROPS")) {
+                PROPS = (await load()).default;
+                return null;
+            }
+            if (!key.includes(block_name!)) {
+                return null;
+            }
+            return [key, await load()];
+        })
+    )
+).filter((i) => i);
+const comps = Object.fromEntries(compsEntries as any);
+const components = Object.values(comps);
+---
+
+<article class="flex flex-col gap-4 p-4">
+    <!-- Display all of our components -->
+    {
+        components.map((component) => (
+            <section class="border rounded-xl border-blue-700">
+                <component.default {...PROPS} />
+            </section>
+        ))
+    }
+</article>

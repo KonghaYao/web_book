@@ -18,8 +18,9 @@ export default (props: CommonProps) => {
                 <p class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
                     {props.description}
                 </p>
-                <Show when={props.comps.btn?.length}>
-                    <div class="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
+                {/* BUTTON GROUP */}
+                {
+                    props.comps.btn?.length && <div class="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
                         {props.comps.btn.map(btn => {
                             return <Show when={btn.isPrimary} fallback={
                                 <a
@@ -43,24 +44,23 @@ export default (props: CommonProps) => {
                         })}
 
                     </div>
-                </Show>
+                }
 
-                <Show when={props.comps.links?.length}>
-                    <div class="px-4 mx-auto text-center md:max-w-screen-md lg:max-w-screen-lg lg:px-36">
-                        <span class="font-semibold text-gray-400">
-                            {props.labelOfFeature}
-                        </span>
-                        <div class="flex flex-wrap justify-center items-center mt-8 text-gray-500 sm:justify-between">
-                            {props.comps.links.map(Link => {
-                                return <a
-                                    href={Link.href}
-                                    class="mr-5 mb-5 lg:mb-0">
-                                    {Link.comp({})}
-                                </a>
-                            })}
-                        </div>
+                {/* LINKS GROUP */}
+                {props.comps.links?.length && <div class="px-4 mx-auto text-center md:max-w-screen-md lg:max-w-screen-lg lg:px-36">
+                    <span class="font-semibold text-gray-400">
+                        {props.labelOfFeature}
+                    </span>
+                    <div class="flex flex-wrap justify-center items-center mt-8 text-gray-500 sm:justify-between">
+                        {props.comps.links.map(Link => {
+                            return <a
+                                href={Link.href}
+                                class="mr-5 mb-5 lg:mb-0">
+                                {Link.comp({})}
+                            </a>
+                        })}
                     </div>
-                </Show>
+                </div>}
             </div>
         </section>
     );
